@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js Project</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <h3>{{msg}}</h3>
+        <h5>{{tutorialInfo.name}}</h5>
+        <a v-bind:href="tutorialInfo.githubLink">Github Link</a><br><br>
+        <p v-html="htmlCode"></p>
+        <hr>
+        <h2>Time: {{ getCurrentTime() }}</h2><hr>
+        <h2>Count: {{count}}</h2>
+        <button @click = "increase($event, 1)" id="up">up (+) 1</button>
+        <button @click = "dicrease(1)" id="down">Down (-) 1</button>
+        <br>
+        <button @click = "increase(2)" id="up">up (+) 2</button>
+        <button @click = "dicrease(2)" id="down">Down (-) 2</button>
+        <hr>
+
+        <button @click="test($event)">Test</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
