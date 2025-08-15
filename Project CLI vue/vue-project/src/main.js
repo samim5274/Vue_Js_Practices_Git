@@ -5,7 +5,7 @@ import ContactDetials from './ContactDetials.vue';
 // createApp(App).mount('#app')
 
 
-console.log(App);
+// console.log(App);
 
 var app = createApp(App);
 
