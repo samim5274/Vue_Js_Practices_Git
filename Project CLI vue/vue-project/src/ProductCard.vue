@@ -1,6 +1,14 @@
 <template>
     <div class="the-card">
-        <div class="the-card__title">{{ product.name }}</div>
+        <div class="the-card__title">
+            <div>
+                {{ product.name }}
+            </div>
+            <div>
+                <img @click="toggleFavourite" height="30" width="30" v-if="product.addToFavourite" src="./img/yellow-star.png" alt="">
+                <img @click="toggleFavourite" height="30" v-else width="30" src="./img/green-star.png" alt="">
+            </div>
+        </div>
         <div class="the-card__body">
             <img :src="product.thumbnail" alt="">
             <h4 style="text-align: center;">{{ product.price }}/- <small>only</small></h4>
@@ -14,6 +22,20 @@
 
 <script>
 export default {
+    mounted(){
+        console.log(this.$slots);
+    },
+
+    emits: {
+        "buy-noe-button-clicked": function(data) {
+            if(!data){
+                console.log("Data missign for buy now click event. "+data);
+                return false;
+            }
+            return true;
+        }
+    },
+
     props: {"product": {type: Object, default: () => ({})}},
 
     methods: {
@@ -22,12 +44,13 @@ export default {
         },
         handleAddToCartClick(){
             this.$emit("add-to-cart-clicked", this.product);
+        },
+        toggleFavourite(){
+            this.$emit("toggle-favourite", this.product);
         }
     },
 
-    mounted(){
-        console.log(this.$slots);
-    },
+    
 
     
 }
@@ -45,6 +68,9 @@ export default {
     background: #08b4f8;
     padding: 5px 11px;
     color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
 }
 
 .the-card__body{

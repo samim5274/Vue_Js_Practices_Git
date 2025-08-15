@@ -7,7 +7,8 @@
       v-for="product in products" 
       :key="product.name" 
       @buy-noe-button-clicked="buyNow"
-      @add-to-cart-clicked="addCart">
+      @add-to-cart-clicked="addCart" 
+      @toggle-favourite="handleToggle">
     </product-card>
     </div>
 <hr>
@@ -75,22 +76,26 @@ import ProductCard from './ProductCard.vue';
             {
               name: "Apple iPhone 12 pro",
               thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcdCm8navl6W6lZ8Dtp4NEEc-XbuCFm-tYww&s",
-              price: "$1200"
+              price: "$1200",
+              addToFavourite: true
             },
             {
               name: "Galaxy S24 Ultra 5G",
               thumbnail: "https://imgs.search.brave.com/OJPNeiVl3XYUBtvBFP8tKIcvAWHjD2YmdJmLmND1Qoc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mZG4u/Z3NtYXJlbmEuY29t/L2ltZ3Jvb3QvcmV2/aWV3cy8yNC9zYW1z/dW5nLWdhbGF4eS1z/MjQtdWx0cmEvbGlm/ZXN0eWxlLy0xMDI0/dzIvZ3NtYXJlbmFf/MDI4LmpwZw",
-              price: "৳94500"
+              price: "৳94500",
+              addToFavourite: false
             },
             {
               name: "Oppo K13 Turbo",
               thumbnail: "https://imgs.search.brave.com/pDapt_wGG-TFzIzondZqZYbY4V6bT1_4jBYMFuFVkOI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/bWVkaWEuc2ZvcnVt/LnZuL3N0b3JhZ2Uv/YXBwL21lZGlhL3Ro/YW5oZGF0LzIwMjUv/Y2FuLWNhbmgtb3Bw/by1rMTMtdHVyYm8t/cHJvL2Nhbi1jYW5o/LW9wcG8tazEzLXR1/cmJvLXByby0xNy5q/cGc",
-              price: "$42000"
+              price: "$42000",
+              addToFavourite: true
             },
             {
               name: "Acer Super ZX Pro",
               thumbnail: "https://imgs.search.brave.com/WZbiJfEgs-imCtzfde8qKmPiR9poy1PSfXcn-3dOKV0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMubXNwaW1hZ2Vz/LmluL2dlYXIvd3At/Y29udGVudC91cGxv/YWRzLzIwMjUvMDQv/QWNlci1TdXBlci1a/WC1Qcm8ucG5n",
-              price: "$2500"
+              price: "$2500",
+              addToFavourite: false
             },
           ],
             contacts:[
@@ -123,6 +128,9 @@ import ProductCard from './ProductCard.vue';
       addCart(product){
         console.log(product);
       },
+      handleToggle(product){
+        product.addToFavourite = !product.addToFavourite;
+      }
     },
 
     components: {
