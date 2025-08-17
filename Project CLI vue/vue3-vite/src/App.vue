@@ -1,283 +1,80 @@
 <template>
   <div class="app">
-
-
-
-
-
-
-
     <div class="container">
-      <header>Comment Section</header>
-      <the-comment 
-        v-model="myComment" 
-        buttonText="Comments" 
-        class="shadow" 
-        @click="handleClick" v-if="!hide" @continueClick="handleContinueClick">
-      </the-comment>
-
-      <p>{{ myComment }}</p>
-
-      <button @click="ShowNotification">Show Notification</button>
-
+      <h1>new user Registration</h1>
+      <label>Ful Name</label><br>
+      <input type="text" placeholder="Enter your full name" v-model="formData.fullName">
+      <br>
+      <label>About Me</label><br>
+      <textarea v-model="formData.aboutYou" placeholder="Write something about you..."></textarea>
       
+      <label>Gender</label><br>
+      <label><input type="radio" name="gender" value="Male" v-model="formData.gender"> Male</label>
+      <label><input type="radio" name="gender" value="Female" v-model="formData.gender" class="ml-2" checked> Female</label>
+      <label><input type="radio" name="gender" value="Other" v-model="formData.gender" class="ml-2"> Other</label><br>
 
+      <label>Language</label><br>
+      <select v-model="formData.language">
+        <option value="" disabled> --Select language-- </option>
+        <option value="Bangla">Bangla</option>
+        <option value="English">English</option>
+        <option value="Arabic">Arabic</option>
+        <option value="Hindi">Hindi</option>
+      </select><br><br>
+
+      <label>Skills</label>
+      <select multiple v-model="formData.skills">
+        <option value="Bangla">HTML</option>
+        <option value="English">CSS</option>
+        <option value="Arabic">JavaScript</option>
+        <option value="Hindi">C#</option>
+        <option value="Hindi">Python</option>
+      </select><br><br>
+
+
+      <label>Agreement</label><br>
+      <label><input type="checkbox" v-model="formData.agreed"> I agree to the Terms and Condition</label><br><br>
+
+      <label>Social Account</label><br>
+      <label><input type="checkbox" value="FB" v-model="formData.socialAccounts"> Facebook</label>
+      <label><input type="checkbox" value="TW" v-model="formData.socialAccounts" class="ml-2"> Twitter</label>
+      <label><input type="checkbox" value="INS" v-model="formData.socialAccounts" class="ml-2"> Instragram</label>
+      <label><input type="checkbox" value="LN" v-model="formData.socialAccounts" class="ml-2"> LinkedIn</label><br>
+      <br><br><hr><br><br>
+
+      <div v-for="(value, key) in formData" :key="key"><strong>{{ key }}</strong>: {{ value }} </div>
     </div>
-
-      <the-notification
-        v-for="(n, i) in notifications"
-        :key="i"
-        :text="n">
-      </the-notification>
-
-
-
-
-
-    <the-dialog heading="Are you sure?" v-if="showDialog">
-      <p>
-        Are you really want to comment? <br>
-        <button @click="showDialog=false">Yes</button>
-        <button @click="showDialog=false">No</button>
-      </p>
-    </the-dialog>
-
-
-
-
-
-
-
-    
-
-
-
-
-
-<hr>
-    <div class="container">
-      <header>{{ msg }} || Cradit Card</header><br>
-
-      <credit-card 
-      v-model:nameOnCard="nameOnCard" 
-      v-model:cardNumber="cardNumber"
-      v-model:expiry="expiry"
-      v-model:cvv="cvv"
-      ></credit-card>
-      <br><hr><br>
-      <p>
-        Name: {{ nameOnCard }} <br>
-        Card Numebr: {{ cardNumber }} <br>
-        Expiry: {{ expiry }} <br>
-        CVV: {{ cvv }} <br>
-      </p>
-    </div>
-
-
-
-
-    <header>{{ msg }}</header>
-    <p>My Rating: {{ myRating }}</p>
-    <the-rating v-model="myRating"></the-rating>
-
-
-
-
-
-
-
-
-    <header>{{ msg }}</header>
-    <div>
-      <product-card 
-        :product="product" 
-        v-for="product in products" 
-        :key="product.name" 
-        @buy-noe-button-clicked="buyNow"
-        @add-to-cart-clicked="addCart" 
-        @toggle-favourite="handleToggle">
-      </product-card>
-    </div>
-
-    <header>{{ msg }}</header>
-
-    <div>
-
-      <the-card cartTitle="About Me">
-        <template #default>
-          <p>Hi, I'm Shamim ipsum dolor sit amet consectetur adipisicing elit. Vel, corporis!</p>
-        </template>
-        <template #footer>
-          <a href="https://shamim.deegau.com">Shamim Hossain</a>
-        </template>        
-      </the-card>
-
-      <the-card cartTitle="Apple iPhone 12 pro">
-        <template #default>
-          <img src="https://www.applegadgetsbd.com/_next/image?url=https%3A%2F%2Fadminapi.applegadgetsbd.com%2Fstorage%2Fmedia%2Fmedium%2FiPhone-16-Pro-Max---16-Pro-Black-Titanium-2734.jpg&w=640&q=100" alt="Image not found">
-          <p>1 Year Official Warranty Support for Australia , Dubai &  Singapore Variant  Only  </p>
-        </template>
-        <template #footer>
-          <button>Buy Now</button>
-          <button>Add Cart</button>
-        </template>
-      </the-card>
-
-      <the-card cartTitle="Services">
-        <template #default>
-          <ul>
-            <li>Web developemt</li>
-            <li>Software Engineering</li>
-            <li>Mobaile App Development</li>
-          </ul>
-        </template>
-      </the-card>
-
-      <the-card cartTitle="Cart Title"></the-card>
-    </div>
-
-
-
-
-
-    
-    <contact-details v-for="contact in contacts" :key="contact.name"
-    :name="contact.name" 
-    :websiteAddress="contact.wehsite" 
-    :address="contact.address" 
-    :phone="contact.phone"></contact-details>
-
-    <header>{{ msg }}</header>
-
-    
   </div>
 </template>
 
 
-
-
-
-
-
-
-
 <script>
-import TheCard from './TheCard.vue';
-import ProductCard from './ProductCard.vue';
-import ContactDetials from './ContactDetials.vue';
-import TheRating from './TheRating.vue';
-import CreditCard from './CreditCard.vue';
-import TheComment from './TheComment.vue';
-import TheDialog from './TheDialog.vue';
-import TheNotification from './TheNotification.vue';
+
 
   export default {
     data(){
         return{
-          myComment: "My Comment is here...",
-          //
-          nameOnCard: "Mr.",
-          cardNumber: "",
-          expiry: "",
-          cvv: "",
-          msg: "Welcome to Vue Project",
-          myRating: 3,
-          products: [
-            {
-              name: "Apple iPhone 12 pro",
-              thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcdCm8navl6W6lZ8Dtp4NEEc-XbuCFm-tYww&s",
-              price: "$1200",
-              addToFavourite: true
-            },
-            {
-              name: "Galaxy S24 Ultra 5G",
-              thumbnail: "https://imgs.search.brave.com/OJPNeiVl3XYUBtvBFP8tKIcvAWHjD2YmdJmLmND1Qoc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mZG4u/Z3NtYXJlbmEuY29t/L2ltZ3Jvb3QvcmV2/aWV3cy8yNC9zYW1z/dW5nLWdhbGF4eS1z/MjQtdWx0cmEvbGlm/ZXN0eWxlLy0xMDI0/dzIvZ3NtYXJlbmFf/MDI4LmpwZw",
-              price: "৳94500",
-              addToFavourite: false
-            },
-            {
-              name: "Oppo K13 Turbo",
-              thumbnail: "https://imgs.search.brave.com/pDapt_wGG-TFzIzondZqZYbY4V6bT1_4jBYMFuFVkOI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/bWVkaWEuc2ZvcnVt/LnZuL3N0b3JhZ2Uv/YXBwL21lZGlhL3Ro/YW5oZGF0LzIwMjUv/Y2FuLWNhbmgtb3Bw/by1rMTMtdHVyYm8t/cHJvL2Nhbi1jYW5o/LW9wcG8tazEzLXR1/cmJvLXByby0xNy5q/cGc",
-              price: "$42000",
-              addToFavourite: true
-            },
-            {
-              name: "Acer Super ZX Pro",
-              thumbnail: "https://imgs.search.brave.com/WZbiJfEgs-imCtzfde8qKmPiR9poy1PSfXcn-3dOKV0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMubXNwaW1hZ2Vz/LmluL2dlYXIvd3At/Y29udGVudC91cGxv/YWRzLzIwMjUvMDQv/QWNlci1TdXBlci1a/WC1Qcm8ucG5n",
-              price: "$2500",
-              addToFavourite: false
-            },
-          ],
-            contacts:[
-              {
-                name: "Shamim Hossain",
-                wehsite: "https://shamim.deegau.com",
-                address: "Dhaka, Bangladesh",
-                phone: "017621652548"
-              },
-              {
-                name: "Biswajit",
-                wehsite: "https://biswajit.com",
-                address: "Dhaka, Bangladesh",
-                phone: "017621654548"
-              },
-              {
-                name: "Sazzad Hossain",
-                wehsite: "https://sazzad.bd.com",
-                address: "Dhaka, Bangladesh",
-                phone: "017621951548"
-              },
-          ],
-          showDialog: false,
-          notifications: [],
+          msg: "Vue 3 Project practices CLI and VITE js",
+          name: "",
+          formData: {
+            fullName : "Md. ",
+            aboutYou: "About me...",
+            gender: "Female",
+            language: "",
+            skills: [],
+            agreed: false,
+            socialAccounts: []
+          },
         };
     },
 
-    methods:{
-      buyNow(product){
-        console.log(product);
-      },
-      addCart(product){
-        console.log(product);
-      },
-      handleToggle(product){
-        product.addToFavourite = !product.addToFavourite;
-      },
-      handleClick(){
-        console.log("clicked");
-      },
-      handleContinueClick(){
-        this.showDialog = true
-      },
-      ShowNotification(){
-        this.notifications.push("You have a new notification for 2.2 second from button click");
-        setTimeout(()=>{
-          this.notifications.shift();
-        }, 2222);
-      }
-    },
+    mounted(){},
 
-    components: {
-          TheCard,
-          ProductCard,
-          ContactDetials,
-          TheRating,
-          CreditCard,
-          TheComment,
-          TheDialog,
-          TheNotification
-        },    
+    methods:{},
+
+    components: {},    
   }
 </script>
-
-
-
-
-
-
-
-
-
 
 
 <style>
@@ -314,5 +111,22 @@ import TheNotification from './TheNotification.vue';
     padding: 2rem;
   }
 
-  /* 45 video ses */
+  input{
+    padding: 5px 11px;
+    margin-bottom: 11px;
+  }
+
+  textarea{
+    padding: 10px;
+    border: 1px solid #a0a0a0;
+    border-radius: 5px;
+    width: 100%;
+    height: 80px;
+  }
+
+  .ml-2{
+    margin-left: 11px;
+  }
+
+  /* 50 video ses */
 </style>
