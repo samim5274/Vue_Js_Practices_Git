@@ -1,0 +1,63 @@
+<template>
+  <div>
+    <login></login>
+    <!-- <div class="toasts"> -->
+        <TransitionGroup name="slide-left" tag="div" class="toasts">
+        <TheTost v-for="(toast, i) in toasts" :key="i" :toastType="toast.type" :message="toast.message"></TheTost>
+      </TransitionGroup>
+      <!-- </div> -->
+  </div>
+</template>
+
+<script>
+import Login from './login/Login.vue';
+import TheTost from './components/TheTost.vue';
+
+export default{
+  data: () => ({
+    toasts: [
+      // {
+      //   type: "Success",
+      //   message: "Done SUccessfully!"
+      // },
+      // {
+      //   type: "Error",
+      //   message: "Something went wrong!"
+      // },
+    ],
+  }),
+  components:{
+    Login,
+    TheTost
+  },
+
+  mounted(){
+    this.$eventBus.on("toast", data => {
+      this.toasts.push(data);
+      this.removeOneToast();
+    })
+  },
+
+  methods: {
+    removeOneToast(){
+      setTimeout(() => {
+        this.toasts.shift();
+      }, 2222);
+    }
+  }
+}
+</script>
+
+<style>
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: all 0.25s ease;
+}
+.slide-left-enter-from,
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* 64 number video done */
+</style>
